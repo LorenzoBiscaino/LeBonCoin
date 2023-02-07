@@ -1,44 +1,45 @@
 package entity;
 
-public class Announces {
+public class Announce {
 	private int id;
 	private String category;
-	private String announce_title;
+	private String announceTitle;
 	private String region;
 	private String description;
 	private String state;
 	private String photos;
-	private int user_id;
+	private int userId;
 	
 	// Constructor with id
-	public Announces(int id, String category, String announce_title, String region, String description, String state,
-			String photos, int user_id) {
+	public Announce(int id, String category, String announceTitle, String region, String description, String state,
+			String photos, int userId) {
 		super();
 		this.id = id;
 		this.category = category;
-		this.announce_title = announce_title;
+		this.announceTitle = announceTitle;
 		this.region = region;
 		this.description = description;
 		this.state = state;
 		this.photos = photos;
-		this.user_id = user_id;
+		this.userId = userId;
 	}
 
 	// Constructor without id
-	public Announces(String category, String announce_title, String region, String description, String state,
-			String photos, int user_id) {
+	public Announce(String category, String announceTitle, String region, String description, String state,
+			String photos, int userId) {
 		super();
 		this.category = category;
-		this.announce_title = announce_title;
+		this.announceTitle = announceTitle;
 		this.region = region;
 		this.description = description;
 		this.state = state;
 		this.photos = photos;
-		this.user_id = user_id;
+		this.userId = userId;
 	}
+
+	
 	
 	//getter setter id
-
 	public int getId() {
 		return id;
 	}
@@ -56,13 +57,14 @@ public class Announces {
 		this.category = category;
 	}
 
-	//getter setter announce_title
-	public String getAnnounce_title() {
-		return announce_title;
+	
+	//getter setter announceTitle
+	public String getAnnounceTitle() {
+		return announceTitle;
 	}
 
-	public void setAnnounce_title(String announce_title) {
-		this.announce_title = announce_title;
+	public void setAnnounceTitle(String announceTitle) {
+		this.announceTitle = announceTitle;
 	}
 
 	//getter setter region
@@ -102,12 +104,12 @@ public class Announces {
 	}
 
 
-	//getter setter user_id
-	public int getUser_id() {
-		return user_id;
+	//getter setter userId
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 }
