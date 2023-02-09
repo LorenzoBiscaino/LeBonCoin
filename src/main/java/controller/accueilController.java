@@ -6,36 +6,54 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class accueilController
- */
+import entity.User;
+import service.UserService;
+
+
 @WebServlet("/accueil")
 public class accueilController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
+	UserService service;
+	
     public accueilController() {
         super();
-        // TODO Auto-generated constructor stub
+        service = new UserService();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int id = -1;
+		
+		try {
+			id = Integer.parseInt( request.getParameter("id"));
+		} catch (Exception e) {
+		}
+		
+		User u = service.getById(id);
+		
+		request.setAttribute("user", u);
+		request.getRequestDispatcher("accueilView.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		try {
+			String category= request.getParameter("categoryChoice");
+			int id = Integer.parseInt( request.getParameter("id"));
+
+			HttpSession s = request.getSession(true);
+			s.setAttribute("category", category);
+			s.setAttribute("id", id);
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher("announces").forward(request, response);
 	}
 
 }
