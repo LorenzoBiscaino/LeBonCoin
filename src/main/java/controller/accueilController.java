@@ -29,10 +29,11 @@ public class accueilController extends HttpServlet {
 		
 		try {
 			HttpSession session = request.getSession(true);
-			int id =(int) session.getAttribute("id");
-			User u = service.getById(id);
+			int userId =(int) session.getAttribute("userId");
+			User u = service.getById(userId);
 			
 			request.setAttribute("user", u);
+			request.setAttribute("userId", userId);
 		} catch (Exception e) {
 		}
 		

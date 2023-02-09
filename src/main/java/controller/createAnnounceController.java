@@ -28,16 +28,7 @@ public class createAnnounceController extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = -1;
 		
-		try {
-			id = Integer.parseInt( request.getParameter("id"));
-		} catch (Exception e) {
-		}
-		
-		User u = serviceUser.getById(id);
-		
-		request.setAttribute("user", u);
 		request.getRequestDispatcher("createAnnounceView.jsp").forward(request, response);
 	}
 
@@ -136,10 +127,13 @@ public class createAnnounceController extends HttpServlet {
 			erreur = false;
 			
 			//int userId = Integer.parseInt( request.getParameter("id"));
-			int userId = 1;
+			//int userId = 1;
+
+			int userId =(int) s.getAttribute("userId");
 			float price = Float.parseFloat(request.getParameter("price"));
 			Announce a = new Announce(category,announceTitle,region,description,state,photos,userId,price);
 			service.add(a);
+			request.getRequestDispatcher("accueil").forward(request, response);
 		}
 		
 	}

@@ -41,7 +41,7 @@
 	<br>
 	<a href="http://localhost:8080/LeBonCoin/updateaccount" >Changer mes informations personnelles</a>
 	<br><br><br>
-	<a href="http://localhost:8080/LeBonCoin/myAnnounces" >Voir mes annonces</a>
+	<a href="http://localhost:8080/LeBonCoin/myannounces" >Voir mes annonces</a>
 	<br><br><br>
 	<a href="http://localhost:8080/LeBonCoin/createAnnounce" >Créer une nouvelle annonce</a>
 	<br><br><br><br><br><br>

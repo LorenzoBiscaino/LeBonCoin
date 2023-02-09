@@ -85,8 +85,7 @@ public class ConnectController extends HttpServlet {
 			
 			doGet(request,response);
 		} else {
-			s.setAttribute("id", idSaisi);
-			System.out.println(idSaisi);
+			s.setAttribute("userId", idSaisi);
 			request.getRequestDispatcher("accueil").forward(request, response);
 		}
 		

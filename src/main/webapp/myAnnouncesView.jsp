@@ -1,39 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@page import="entity.Announce" %>
+       <%@page import="entity.Announce" %>
     <%@page import="service.AnnounceService" %>
     <%@page import="entity.User" %>
     <%@page import="service.UserService" %>
     <%@ page import = " java.util.* " %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Announces View</title>
-</head>
-<body>
-<h1>Liste des annonces pour la catégorie : ${category}</h1>
+	<head>
+		<meta charset="UTF-8">
+		<title>Mes annonces</title>
+	</head>
+	<body>
+	<h1>Liste de mes annonces</h1>
 
 <table>
 		<thead>
 			<tr>
 				<th>id</th>
-				<th>catégorie</th>
-				<th>titre</th>
-				<th>région</th>
-				<th>description</th>
-				<th>état</th>
-				<th>photo</th>
-				<th>prix</th>
+				<th>Catégorie</th>
+				<th>Titre</th>
+				<th>Région</th>
+				<th>Description</th>
+				<th>Etat</th>
+				<th>Photo</th>
+				<th>Prix</th>
+				<th>Vendeur</th>
 			</tr>
 		</thead>
 	
 	
 		
 			<tbody>
-				<%String category2 = (String) session.getAttribute("category"); 
-				 for ( Announce a : new AnnounceService().getByCategory(category2)) {
-				 User u =new UserService().getById(a.getUserId()); %>
+				<%int userId = (int) session.getAttribute("userId"); 
+				 for ( Announce a : new AnnounceService().getByUserId(userId)) {%>
 					<tr>
 						<td> <%= a.getId() %> </td>
 						<td> <%= a.getCategory() %> </td>
@@ -43,11 +43,11 @@
 						<td> <%= a.getState() %> </td>
 						<td> <img src="<%= a.getPhotos() %>" alt="photo annonce"/> </td>
 						<td> <%= a.getPrice() %> </td>
-						<td> <%= u.getUsername() %> </td>
 					</tr>
 				<%} %>
 			</tbody>
 		</table>
 		<a href='/LeBonCoin/accueil'>Retour à l'accueil</a>
-</body>
-</html> 
+	
+	</body>
+</html>
