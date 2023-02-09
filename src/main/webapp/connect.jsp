@@ -14,7 +14,7 @@
             <label for="email">Email</label><br>
             <input type="email" name="email" placeholder="exemple@exemple.com"><br>
             <span> ${emailErreur} </span>
-            <span> ${email2Erreur} </span>
+            <span> ${email2Erreur} </span><br>
 
             <label for="pw">Password</label><br>
             <input type="password" name="pw"><br>
@@ -25,6 +25,9 @@
                       
             <input type="submit" value="Valider">
         </form>
+        
+        <br><br><br>
+		<a href="http://localhost:8080/LeBonCoin/createaccount" >Pas encore de compte? Cliquez ici pour en créer un!</a>
 
 </body>
 </html>

@@ -23,14 +23,16 @@ public class ConnectController extends HttpServlet {
 	}	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true); 
-		session.invalidate();
+
+		//HttpSession session = request.getSession(true); 
+		//session.invalidate();
 
 		request.getRequestDispatcher("connect.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		
 		String email = request.getParameter("email");
 		String password = request.getParameter("pw");
 		
@@ -70,24 +72,26 @@ public class ConnectController extends HttpServlet {
 			s.setAttribute("password2Erreur", password2Erreur);
 			
 			doGet(request,response);
-		} 
-		
-		//Recherche dans la base de données de l'id de l'utilisateur
-		
-		//boolean erreurPasTrouve = false;
-		String messageErreur = "";
-		int idSaisi = service.getByEmail(email, password);
-		
-		if(idSaisi == -1) {
-			//erreurPasTrouve = true;
-			messageErreur = "Email et/ou mot de passe incorrect";
-			s.setAttribute("messageErreur", messageErreur);
-			
-			doGet(request,response);
 		} else {
-			s.setAttribute("userId", idSaisi);
-			request.getRequestDispatcher("accueil").forward(request, response);
+			//Recherche dans la base de données de l'id de l'utilisateur
+			
+			//boolean erreurPasTrouve = false;
+			String messageErreur = "";
+			int idSaisi = service.getByEmail(email, password);
+			
+			if(idSaisi == -1) {
+				//erreurPasTrouve = true;
+				messageErreur = "Email et/ou mot de passe incorrect";
+				s.setAttribute("messageErreur", messageErreur);
+				
+				doGet(request,response);
+			} else {
+				s.setAttribute("userId", idSaisi);
+				request.getRequestDispatcher("accueil").forward(request, response);
+			}
 		}
+		
+		
 		
 		
 		
