@@ -38,6 +38,10 @@
 			<input name="passwordConfirmation" type="password"><br><br>
 			<span> ${confirmationError} </span>
 			
+			<label for="phone">Numéro de télephone : </label>
+			<input name="phone" type="text" ><br><br>
+			<span> ${phoneError} </span>
+			
 			<input type="submit" value="S'inscrire">
 			
 		</form>
