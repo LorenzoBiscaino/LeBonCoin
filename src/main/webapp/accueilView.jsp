@@ -10,22 +10,22 @@
 	
 	<h1>LeBonCoin</h1>
 	
-	<form action="accueilController" method="post">
+	<form action="accueil" method="post">
 		<label for="categoryChoice">Recherchez des annonces par catégorie</label>
             <select name="categoryChoice">
                 <option value=""></option>
-                <option value="1">Vacances</option>
-                <option value="2">Emploi</option>
-                <option value="3">Véhicule</option>
-                <option value="4">Immobilier</option>
-                <option value="5">Mode</option>
-                <option value="6">Maison</option>
-                <option value="7">Multimédia</option>
-                <option value="8">Loisir</option>
-                <option value="9">Animaux</option>
-                <option value="10">Matériel Professionnel</option>
-                <option value="11">Services</option>
-                <option value="12">Divers</option>
+                <option value="Vacances">Vacances</option>
+                <option value="Emploi">Emploi</option>
+                <option value="Vehicule">Véhicule</option>
+                <option value="Immobilier">Immobilier</option>
+                <option value="Mode">Mode</option>
+                <option value="Maison">Maison</option>
+                <option value="Multimedia">Multimédia</option>
+                <option value="Loisir">Loisir</option>
+                <option value="Animaux">Animaux</option>
+                <option value="Materiel Professionnel">Matériel Professionnel</option>
+                <option value="Services">Services</option>
+                <option value="Divers">Divers</option>
 			</select>
 			
 			<input type="submit" value="Rechercher">

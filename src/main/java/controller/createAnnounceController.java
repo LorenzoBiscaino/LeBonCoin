@@ -43,7 +43,16 @@ public class createAnnounceController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
+		HttpSession s = request.getSession(true);
+		s.removeAttribute("categoryErreur");
+		s.removeAttribute("regionErreur");
+		s.removeAttribute("announceTitleErreur");
+		s.removeAttribute("descriptionErreur");
+		s.removeAttribute("photosErreur");
+		s.removeAttribute("stateErreur");
+		s.removeAttribute("priceErreur");
+		
 		
 		String category = request.getParameter("category");
 		String region = request.getParameter("region");
@@ -97,7 +106,7 @@ public class createAnnounceController extends HttpServlet {
 		}
 		
 		
-		HttpSession s = request.getSession(true);
+		
 		if(erreur) {
 			
 			s.setAttribute("category", category);
@@ -126,8 +135,8 @@ public class createAnnounceController extends HttpServlet {
 			s.setAttribute("priceErreur", null);
 			erreur = false;
 			
-			int userId = Integer.parseInt( request.getParameter("id"));
-			//int userId = 1;
+			//int userId = Integer.parseInt( request.getParameter("id"));
+			int userId = 1;
 			float price = Float.parseFloat(request.getParameter("price"));
 			Announce a = new Announce(category,announceTitle,region,description,state,photos,userId,price);
 			service.add(a);

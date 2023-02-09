@@ -41,19 +41,21 @@ public class accueilController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		System.out.println(request.getParameter("categoryChoice"));
 		try {
 			String category= request.getParameter("categoryChoice");
-			int id = Integer.parseInt( request.getParameter("id"));
+			//int id = Integer.parseInt( request.getParameter("id"));
+			int id = 1;
 
 			HttpSession s = request.getSession(true);
 			s.setAttribute("category", category);
 			s.setAttribute("id", id);
-	
+			request.getRequestDispatcher("announcesView.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
+			doGet(request,response);
 		}
-		request.getRequestDispatcher("announces").forward(request, response);
+		
 	}
 
 }

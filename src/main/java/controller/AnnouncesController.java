@@ -24,7 +24,7 @@ public class AnnouncesController extends HttpServlet {
 		
 		 HttpSession session = request.getSession();
 
-	        session.setAttribute("category", category);
+	       session.setAttribute("category", category);
 		request.getRequestDispatcher("announcesView.jsp").forward(request, response);
 	}
 

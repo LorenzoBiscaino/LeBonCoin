@@ -4,6 +4,7 @@
     <%@page import="service.AnnounceService" %>
     <%@page import="entity.User" %>
     <%@page import="service.UserService" %>
+    <%@ page import = " java.util.* " %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,9 +32,9 @@
 	
 		
 			<tbody>
-				<%String category2 = request.getParameter("category"); %>
-				<% for ( Announce a : new AnnounceService().getByCategory(category2)) {%>
-				<% User u =new UserService().getById(a.getUserId()); %>
+				<%String category2 = (String) session.getAttribute("category"); 
+				 for ( Announce a : new AnnounceService().getByCategory(category2)) {
+				 User u =new UserService().getById(a.getUserId()); %>
 					<tr>
 						<td> <%= a.getId() %> </td>
 						<td> <%= a.getCategory() %> </td>
