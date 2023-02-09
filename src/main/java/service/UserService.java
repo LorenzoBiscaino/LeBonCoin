@@ -69,13 +69,14 @@ public class UserService {
 		return null;
 	}
 	
-	public int getByEmail(String email) {
+	public int getByEmail(String email, String password) {
 		int id=-1;
 		try {
 			Connection con = UtileConnection.seConnecter();
 			
-			PreparedStatement ps = con.prepareStatement("SELECT id FROM users WHERE email=?;");
+			PreparedStatement ps = con.prepareStatement("SELECT id FROM users WHERE email=? AND password=?;");
 			ps.setString(1, email);
+			ps.setString(2, password);
 			
 			ResultSet rs = ps.executeQuery();
 			
