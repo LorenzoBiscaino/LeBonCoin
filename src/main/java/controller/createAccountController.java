@@ -93,7 +93,7 @@ public class createAccountController extends HttpServlet {
     		} else {
     			User u = new User(firstName, lastName, userName, email, password, phone);
                 this.service.add(u);
-    			request.getRequestDispatcher("acceuilView.jsp").forward(request, response);
+    			request.getRequestDispatcher("accueilView.jsp").forward(request, response);
     		}
 	}
 }
