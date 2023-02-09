@@ -69,6 +69,45 @@ public class UserService {
 		return null;
 	}
 	
+	public int getByEmail(String email) {
+		int id=-1;
+		try {
+			Connection con = UtileConnection.seConnecter();
+			
+			PreparedStatement ps = con.prepareStatement("SELECT id FROM users WHERE email=?;");
+			ps.setString(1, email);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				id = rs.getInt("id");
+			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
+	public int getByUsername(String username) {
+		int id=-1;
+		try {
+			Connection con = UtileConnection.seConnecter();
+			
+			PreparedStatement ps = con.prepareStatement("SELECT id FROM users WHERE username=?;");
+			ps.setString(1, username);
+			
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt("id");
+			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
 	
 	public void add(User u) {
 		try {
@@ -127,5 +166,6 @@ public class UserService {
 			e.printStackTrace();
 		}
 	}
+	
 }
 
