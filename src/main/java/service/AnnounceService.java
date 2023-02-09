@@ -157,6 +157,36 @@ public class AnnounceService {
 		return ret;
 	}
 	
+	public List<Announce> getByUserId(int userId ){
+		List<Announce> ret = new ArrayList<Announce>();
+		
+		try {
+			Connection con = UtileConnection.seConnecter();
+			
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM Announces WHERE user_id=?;");
+			ps.setInt(1,userId);
+			ResultSet rs = ps.executeQuery(); 
+			
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String category = rs.getString("category");
+				String announceTitle = rs.getString("announce_title");
+				String region = rs.getString("region");
+				String description = rs.getString("description");
+				String state = rs.getString("state");
+				String photos = rs.getString("photos");
+				float price = rs.getFloat("price");
+				
+				ret.add(new Announce(id, category, announceTitle, region, description, state, photos, userId, price));
+			}
+			
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
 	public static void main(String[] args) {
 		//test getAll
 //		AnnounceService service = new AnnounceService();
@@ -184,6 +214,10 @@ public class AnnounceService {
 //		//test getById
 //		AnnounceService service = new AnnounceService();
 //		System.out.println(service.getById(3));
+		
+//		//test getByUserId
+//		AnnounceService service = new AnnounceService();
+//		System.out.println(service.getByUserId(2));
 	}
 
 }

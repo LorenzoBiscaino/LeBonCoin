@@ -1,13 +1,16 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.HttpSession;
+
+import entity.User;
+import service.UserService;
 
 /**
  * Servlet implementation class User
@@ -15,6 +18,11 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/connect")
 public class ConnectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	UserService service;
+	public ConnectController() {
+		service = new UserService();
+	}	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -30,7 +38,7 @@ public class ConnectController extends HttpServlet {
 		
 
 
-		boolean erreur = false;
+		boolean erreurSaisie = false;
 		String emailErreur = "";
 		String email2Erreur = "";
 		String passwordErreur = "";
@@ -38,23 +46,25 @@ public class ConnectController extends HttpServlet {
 		
 		
 		if(email==null || "".equals(email)) {
-			erreur = true;
+			erreurSaisie = true;
 			emailErreur =  "Vous devez remplir le champ e-mail!";
 		} else if(!email.contains("@")) {
-			erreur = true;
+			erreurSaisie = true;
 			email2Erreur =  "Vous devez remplir le champ e-mail au bon format : exemple@gmail.com";
 		}
 		if(password==null || "".equals(password)) {
-			erreur = true;
+			erreurSaisie = true;
 			passwordErreur = "Vous devez remplir le champ mot de passe!";
 		} else if(password.length()<8) {
-			erreur = true;
+			erreurSaisie = true;
 			password2Erreur = "Le mot de passe doit contenir plus de 8 caractères!";
 		}
 		
+		
 		HttpSession s = request.getSession(true);
-		if(erreur) {
-
+		if(erreurSaisie) {
+			System.out.println("OK");
+			
 			s.setAttribute("email", email);
 			s.setAttribute("password", password);
 			
@@ -65,10 +75,22 @@ public class ConnectController extends HttpServlet {
 			s.setAttribute("password2Erreur", password2Erreur);
 			
 			doGet(request,response);
-		} else {
+		} 
+		
+		//Recherche dans la base de données de l'id de l'utilisateur
+		
+		boolean erreurPasTrouve = false;
+		String messageErreur = "";
+		int idSaisi = service.getByEmail(email, password);
+		
+		if(idSaisi == -1) {
+			erreurPasTrouve = true;
+			messageErreur = "Email et/ou mot de passe incorrect";
+			s.setAttribute("messageErreur", messageErreur);
 			
-//			s.setAttribute("nom", nom);
-//			s.setAttribute("prenom", prenom);
+			doGet(request,response);
+		} else {
+			s.setAttribute("id", idSaisi);
 			request.getRequestDispatcher("accueilView.jsp").forward(request, response);
 		}
 		
