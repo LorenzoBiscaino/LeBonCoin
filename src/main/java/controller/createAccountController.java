@@ -82,11 +82,6 @@ public class createAccountController extends HttpServlet {
 
     			doGet(request, response);			
     		} else {
-    			session.setAttribute("firstName", firstName);
-    			session.setAttribute("lastName", lastName);
-    			session.setAttribute("lastName", lastName);
-    			
-    			
     			User u = new User(firstName, lastName, userName, email, password, passwordConfirmation);
                 this.service.add(u);
     			request.getRequestDispatcher("acceuilView.jsp").forward(request, response);
