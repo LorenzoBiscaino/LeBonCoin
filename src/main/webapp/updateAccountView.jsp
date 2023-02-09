@@ -10,7 +10,7 @@
 
 <h1>Mettre à jour votre compte</h1>
 	
-	<form method="post">
+	<form method="post" action="updateaccount">
 		<label for='txtid'>id</label>
 		<input type='number' name='txtid' disabled="disabled" value="${user.id}" > <br/> 
 	

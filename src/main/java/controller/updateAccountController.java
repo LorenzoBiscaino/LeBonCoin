@@ -24,13 +24,16 @@ public class updateAccountController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id=-1;
 		try {
-			id=Integer.parseInt(request.getParameter("id"));
+			HttpSession session = request.getSession(true);
+			int userId =(int) session.getAttribute("userId");
+			User u = service.getById(userId);
+			
+			request.setAttribute("user", u);
+			request.setAttribute("userId", userId);
 		}catch (Exception e) {
 		}
-		User u = service.getById(id);
-		request.setAttribute("user",u);
+
 		request.getRequestDispatcher("updateAccountView.jsp").forward(request, response);
 	}
 
@@ -95,17 +98,16 @@ public class updateAccountController extends HttpServlet {
 			doGet(request, response);			
 		} else {
 			try {
-				int id = Integer.parseInt(request.getParameter("id"));
-				User u = new User(id,firstName, lastName, userName, email, password, phone);
+				int userId =(int) session.getAttribute("userId");
+				User u = new User(userId,firstName, lastName, userName, email, password, phone);
 				service.update(u);
-				 System.out.println(firstName);
 				
 			} catch (Exception e) {
 				 e.printStackTrace();
 			}
 			
 			
-			request.getRequestDispatcher("accueilView.jsp").forward(request, response);
+			request.getRequestDispatcher("accueil").forward(request, response);
 		}
 }
 	}
