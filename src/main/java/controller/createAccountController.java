@@ -36,6 +36,7 @@ public class createAccountController extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String passwordConfirmation = request.getParameter("passwordConfirmation");
+            String phone = request.getParameter("phone");
            
             boolean erreur = false;
     		String firstNameError = "";
@@ -43,6 +44,7 @@ public class createAccountController extends HttpServlet {
     		String emailError = "";
     		String passwordError = "";
     		String confirmationError = "";
+    		String phoneError = "";
     		
     		if (firstName == null || "".equals(firstName)) {
     			erreur = true;
@@ -64,6 +66,11 @@ public class createAccountController extends HttpServlet {
     			erreur = true;
     			confirmationError = "confirmation and password not equals";
     		}
+    		if (phone == null || "".equals(phone)) {
+    			erreur = true;
+    			phoneError = "phone not fill";
+    		}
+    		
             
     		HttpSession session = request.getSession(true);
     		
@@ -73,23 +80,20 @@ public class createAccountController extends HttpServlet {
     			session.setAttribute("email", email);
     			session.setAttribute("password", password);
     			session.setAttribute("confirmation", passwordConfirmation);
+    			session.setAttribute("phone", phone);
     			
     			session.setAttribute("firstNameError", firstNameError);
     			session.setAttribute("lastNameError", lastNameError);
     			session.setAttribute("emailError", emailError);
     			session.setAttribute("passwordError", passwordError);
     			session.setAttribute("confirmationError", confirmationError);
+    			session.setAttribute("phoneError", phoneError);
 
     			doGet(request, response);			
     		} else {
-    			session.setAttribute("firstName", firstName);
-    			session.setAttribute("lastName", lastName);
-    			session.setAttribute("lastName", lastName);
-    			
-    			
-    			User u = new User(firstName, lastName, userName, email, password, passwordConfirmation);
+    			User u = new User(firstName, lastName, userName, email, password, phone);
                 this.service.add(u);
-    			request.getRequestDispatcher("acceuilView.jsp").forward(request, response);
+    			request.getRequestDispatcher("accueilView.jsp").forward(request, response);
     		}
 	}
 }
