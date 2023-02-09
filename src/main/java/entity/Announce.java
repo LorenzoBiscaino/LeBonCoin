@@ -9,10 +9,11 @@ public class Announce {
 	private String state;
 	private String photos;
 	private int userId;
+	private float price;
 	
 	// Constructor with id
 	public Announce(int id, String category, String announceTitle, String region, String description, String state,
-			String photos, int userId) {
+			String photos, int userId, float price) {
 		super();
 		this.id = id;
 		this.category = category;
@@ -22,11 +23,12 @@ public class Announce {
 		this.state = state;
 		this.photos = photos;
 		this.userId = userId;
+		this.price = price;
 	}
 
-	// Constructor without id
+	// Constructor without id	
 	public Announce(String category, String announceTitle, String region, String description, String state,
-			String photos, int userId) {
+			String photos, int userId, float price) {
 		super();
 		this.category = category;
 		this.announceTitle = announceTitle;
@@ -35,10 +37,9 @@ public class Announce {
 		this.state = state;
 		this.photos = photos;
 		this.userId = userId;
+		this.price = price;
 	}
 
-	
-	
 	//getter setter id
 	public int getId() {
 		return id;
@@ -112,4 +113,15 @@ public class Announce {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
+
+	//getter setter price
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	
 }
