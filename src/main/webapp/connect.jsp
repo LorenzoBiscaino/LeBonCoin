@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Connexion</title>
 </head>
 <body>
 	<h1>Authentification</h1>
 
-        <form method ="post" action = "connect">
+        <form method ="post" action="connect">
 
             <label for="email">Email</label><br>
             <input type="email" name="email" placeholder="exemple@exemple.com"><br>

@@ -26,31 +26,32 @@ public class accueilController extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = -1;
 		
 		try {
-			id = Integer.parseInt( request.getParameter("id"));
+			HttpSession session = request.getSession(true);
+			int id =(int) session.getAttribute("id");
+			User u = service.getById(id);
+			
+			request.setAttribute("user", u);
 		} catch (Exception e) {
 		}
 		
-		User u = service.getById(id);
-		
-		request.setAttribute("user", u);
 		request.getRequestDispatcher("accueilView.jsp").forward(request, response);
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("categoryChoice"));
+		
+		String category= request.getParameter("categoryChoice");
+		
 		try {
-			String category= request.getParameter("categoryChoice");
-			//int id = Integer.parseInt( request.getParameter("id"));
-			int id = 1;
-
-			HttpSession s = request.getSession(true);
-			s.setAttribute("category", category);
-			s.setAttribute("id", id);
-			request.getRequestDispatcher("announcesView.jsp").forward(request, response);
+			if(category!=null) {
+				HttpSession s = request.getSession(true);
+				s.setAttribute("category", category);
+				request.getRequestDispatcher("announcescontroller").forward(request, response);
+			} else {
+				doGet(request,response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			doGet(request,response);

@@ -12,9 +12,7 @@ import javax.servlet.http.HttpSession;
 import entity.User;
 import service.UserService;
 
-/**
- * Servlet implementation class User
- */
+
 @WebServlet("/connect")
 public class ConnectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,6 +23,8 @@ public class ConnectController extends HttpServlet {
 	}	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true); 
+		session.invalidate();
 
 		request.getRequestDispatcher("connect.jsp").forward(request, response);
 	}
@@ -32,12 +32,8 @@ public class ConnectController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");
+		String password = request.getParameter("pw");
 		
-		
-		
-
-
 		boolean erreurSaisie = false;
 		String emailErreur = "";
 		String email2Erreur = "";
@@ -55,7 +51,7 @@ public class ConnectController extends HttpServlet {
 		if(password==null || "".equals(password)) {
 			erreurSaisie = true;
 			passwordErreur = "Vous devez remplir le champ mot de passe!";
-		} else if(password.length()<8) {
+		} else if(password.length()<2) {
 			erreurSaisie = true;
 			password2Erreur = "Le mot de passe doit contenir plus de 8 caractères!";
 		}
@@ -63,7 +59,6 @@ public class ConnectController extends HttpServlet {
 		
 		HttpSession s = request.getSession(true);
 		if(erreurSaisie) {
-			System.out.println("OK");
 			
 			s.setAttribute("email", email);
 			s.setAttribute("password", password);
@@ -79,20 +74,22 @@ public class ConnectController extends HttpServlet {
 		
 		//Recherche dans la base de données de l'id de l'utilisateur
 		
-		boolean erreurPasTrouve = false;
+		//boolean erreurPasTrouve = false;
 		String messageErreur = "";
 		int idSaisi = service.getByEmail(email, password);
 		
 		if(idSaisi == -1) {
-			erreurPasTrouve = true;
+			//erreurPasTrouve = true;
 			messageErreur = "Email et/ou mot de passe incorrect";
 			s.setAttribute("messageErreur", messageErreur);
 			
 			doGet(request,response);
 		} else {
 			s.setAttribute("id", idSaisi);
-			request.getRequestDispatcher("accueilView.jsp").forward(request, response);
+			System.out.println(idSaisi);
+			request.getRequestDispatcher("accueil").forward(request, response);
 		}
+		
 		
 		
 	}
