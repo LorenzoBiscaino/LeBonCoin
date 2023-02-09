@@ -7,28 +7,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import DAO.UtilConnection;
+import DAO.UtileConnection;
 import entity.User;
 
 public class UserService {
 
 	public List<User> getAll(){
-		List<Character> ret = new ArrayList<Character>();
+		List<User> ret = new ArrayList<User>();
 		
 		try {
-			Connection con = UtilConnection.seConnecter();
+			Connection con = UtileConnection.seConnecter();
 			
-			String query = "SELECT * FROM characters";
+			String query = "SELECT * FROM users";
 			ResultSet rs = con.createStatement().executeQuery(query);
 			
 			while ( rs.next() ) {
 				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int level = rs.getInt("level");
-				int size = rs.getInt("size");
-				String type = rs.getString("type");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String username = rs.getString("username");
+				String email = rs.getString("email");
+				String password = rs.getString("password");
+				String phone = rs.getString("phone");
 
-				ret.add( new Character(id,name,level,size,type) );
+				ret.add( new User(id,firstName,lastName, username, email, password,phone) );
 			}
 			
 			con.close();
@@ -40,22 +42,24 @@ public class UserService {
 	}
 	
 	
-	public Character getById(int id) {
+	public User getById(int id) {
 		try {
-			Connection con = UtilConnection.seConnecter();
+			Connection con = UtileConnection.seConnecter();
 			
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM characters WHERE id=?;");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE id=?;");
 			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				String name = rs.getString("name");
-				String type = rs.getString("type");
-				int level = rs.getInt("level");
-				int size = rs.getInt("size");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String username = rs.getString("username");
+				String email = rs.getString("email");
+				String password = rs.getString("password");
+				String phone = rs.getString("phone");
 				
-				return new Character(id, name, level, size, type);
+				return new User(id,firstName,lastName, username, email, password,phone);
 			}
 			
 			con.close();
@@ -66,14 +70,17 @@ public class UserService {
 	}
 	
 	
-	public void add(Character c) {
+	public void add(User u) {
 		try {
-			Connection con = UtilConnection.seConnecter();
-			PreparedStatement ps = con.prepareStatement("INSERT INTO characters (name, level, size, type) VALUES (?,?,?,?);");
-			ps.setString(1, c.getName());
-			ps.setInt(2, c.getLevel());
-			ps.setInt(3, c.getSize());
-			ps.setString(4, c.getType());
+			Connection con = UtileConnection.seConnecter();
+			PreparedStatement ps = con.prepareStatement("INSERT INTO users (first_name, last_name, username, email, password,phone) VALUES (?,?,?,?,?,?);");
+			ps.setString(1, u.getFirstName());
+			ps.setString(2, u.getLastName());
+			ps.setString(3, u.getUsername());
+			ps.setString(4, u.getEmail());
+			ps.setString(5, u.getPassword());
+			ps.setString(6, u.getPhone());
+			
 			
 			ps.executeUpdate();
 			
@@ -86,16 +93,18 @@ public class UserService {
 	
 
 
-	public void update(Character c) {
+	public void update(User u) {
 		try {
-			Connection con = UtilConnection.seConnecter();
+			Connection con = UtileConnection.seConnecter();
 
-			PreparedStatement ps = con.prepareStatement("UPDATE characters SET name=?, level=?, size=?, type=? WHERE id=?;");
-			ps.setString(1, c.getName());
-			ps.setInt(2, c.getLevel());
-			ps.setInt(3, c.getSize());
-			ps.setString(4, c.getType());
-			ps.setInt(5, c.getId());
+			PreparedStatement ps = con.prepareStatement("UPDATE users SET first_name=?, last_name=?, username=?, email=?, password=?,phone=? WHERE id=?;");
+			ps.setString(1, u.getFirstName());
+			ps.setString(2, u.getLastName());
+			ps.setString(3, u.getUsername());
+			ps.setString(4, u.getEmail());
+			ps.setString(5, u.getPassword());
+			ps.setString(6, u.getPhone());
+			ps.setInt(7, u.getId());
 
 			ps.executeUpdate();
 			
@@ -107,9 +116,9 @@ public class UserService {
 	
 	public void delete(int id) {
 		try {
-			Connection con = UtilConnection.seConnecter();
+			Connection con = UtileConnection.seConnecter();
 			
-			PreparedStatement ps = con.prepareStatement("DELETE FROM characters WHERE id=?;");
+			PreparedStatement ps = con.prepareStatement("DELETE FROM users WHERE id=?;");
 			ps.setInt(1, id);
 			ps.executeUpdate();
 						
@@ -119,4 +128,4 @@ public class UserService {
 		}
 	}
 }
-}
+
