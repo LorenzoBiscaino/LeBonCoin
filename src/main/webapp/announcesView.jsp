@@ -21,7 +21,7 @@
 				<th>titre</th>
 				<th>région</th>
 				<th>description</th>
-				<th>pays</th>
+				<th>état</th>
 				<th>photo</th>
 				<th>prix</th>
 				<th>vendeur</th>
